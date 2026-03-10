@@ -1,0 +1,787 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>IELTS Speaking Trainer</title>
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:wght@300;400;500;600;700&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet"/>
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --bg:#f0f4ff;--card:#fff;--border:#dbeafe;--text:#0f172a;--sub:#64748b;
+  --accent:#2563eb;--accent2:#1d4ed8;--surface:#eff6ff;
+  --warn:#f59e0b;--danger:#dc2626;--success:#059669;
+  --badge:#dbeafe;--badge-text:#1d4ed8;--shadow:rgba(0,0,0,.07);
+}
+.dark{
+  --bg:#0a0f1e;--card:#111827;--border:#1e3a5f;--text:#e2e8f0;--sub:#94a3b8;
+  --accent:#3b82f6;--accent2:#2563eb;--surface:#1a2744;
+  --badge:#1e3a5f;--badge-text:#60a5fa;--shadow:rgba(0,0,0,.35);
+}
+body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--text);min-height:100vh;transition:background .3s,color .3s}
+::-webkit-scrollbar{width:5px}::-webkit-scrollbar-track{background:var(--bg)}::-webkit-scrollbar-thumb{background:var(--border);border-radius:3px}
+nav{display:flex;align-items:center;justify-content:space-between;padding:13px 24px;background:var(--card);border-bottom:1px solid var(--border);position:sticky;top:0;z-index:100}
+.logo{display:flex;align-items:center;gap:10px;cursor:pointer}
+.logo-icon{width:36px;height:36px;background:var(--accent);border-radius:10px;display:flex;align-items:center;justify-content:center;color:#fff;font-size:17px;flex-shrink:0}
+.logo-name{font-family:'DM Serif Display',serif;font-size:1.05rem;line-height:1.2}
+.logo-sub{font-size:.62rem;color:var(--sub);font-weight:600;letter-spacing:.06em;text-transform:uppercase}
+.nav-links{display:flex;align-items:center;gap:4px}
+.nbtn{background:none;border:none;cursor:pointer;padding:7px 13px;border-radius:8px;font-size:.84rem;font-weight:500;color:var(--sub);font-family:'DM Sans',sans-serif;transition:all .2s}
+.nbtn:hover,.nbtn.on{background:var(--surface);color:var(--text)}
+.nbadge{background:var(--accent);color:#fff;font-size:.6rem;padding:1px 5px;border-radius:8px;margin-left:3px;display:none}
+.icon-btn{background:none;border:none;cursor:pointer;padding:8px;border-radius:8px;font-size:1.1rem;color:var(--sub)}
+.wrap{max-width:900px;margin:0 auto;padding:28px 22px;width:100%}
+.screen{display:none}.screen.show{display:block}
+.btn{display:inline-flex;align-items:center;gap:7px;padding:11px 24px;border-radius:11px;font-size:.92rem;font-weight:600;cursor:pointer;border:none;font-family:'DM Sans',sans-serif;transition:all .2s}
+.btn-p{background:var(--accent);color:#fff;box-shadow:0 4px 14px color-mix(in srgb,var(--accent) 30%,transparent)}
+.btn-p:hover{background:var(--accent2);transform:translateY(-1px)}
+.btn-s{background:var(--surface);color:var(--text);border:1px solid var(--border)}
+.btn-s:hover{background:var(--border)}
+.btn-g{background:transparent;color:var(--sub);border:1px solid var(--border)}
+.btn-g:hover{background:var(--surface);color:var(--text)}
+.btn-lg{padding:14px 36px;font-size:1rem;border-radius:13px}
+.btn-sm{padding:6px 13px;font-size:.81rem;border-radius:8px}
+.btn-row{display:flex;flex-wrap:wrap;gap:9px;justify-content:center}
+.hero{text-align:center;padding:44px 0 32px}
+.eyebrow{font-size:.7rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--accent);margin-bottom:12px}
+h1{font-family:'DM Serif Display',serif;font-size:clamp(1.9rem,5vw,3rem);line-height:1.15;margin-bottom:13px}
+h1 span{color:var(--accent);font-style:italic}
+.hero-sub{color:var(--sub);font-size:.96rem;max-width:490px;margin:0 auto 30px;line-height:1.75}
+.stats{display:flex;justify-content:center;gap:30px;margin-bottom:34px}
+.stat-n{font-family:'JetBrains Mono',monospace;font-size:1.55rem;font-weight:700;color:var(--accent)}
+.stat-l{font-size:.7rem;color:var(--sub);font-weight:600;text-transform:uppercase;letter-spacing:.05em;margin-top:2px;text-align:center}
+.steps{display:grid;grid-template-columns:repeat(auto-fit,minmax(185px,1fr));gap:13px;margin-top:18px}
+.step{background:var(--card);border:1px solid var(--border);border-radius:13px;padding:17px}
+.step-n{width:28px;height:28px;border-radius:8px;background:color-mix(in srgb,var(--accent) 14%,transparent);color:var(--accent);font-size:.8rem;font-weight:700;display:flex;align-items:center;justify-content:center;margin-bottom:9px}
+.step-ico{font-size:1.25rem;margin-bottom:6px}
+.step-t{font-weight:700;font-size:.87rem;margin-bottom:4px}
+.step-d{font-size:.79rem;color:var(--sub);line-height:1.6}
+hr{border:none;border-top:1px solid var(--border);margin:22px 0}
+.sec-h{font-family:'DM Serif Display',serif;font-size:1.5rem;margin-bottom:4px}
+.sec-s{color:var(--sub);font-size:.87rem;margin-bottom:20px}
+.pc-wrap{display:flex;flex-direction:column;align-items:center;gap:22px;padding:12px 0}
+.phase-tag{display:inline-flex;align-items:center;gap:6px;padding:5px 16px;border-radius:18px;font-size:.77rem;font-weight:700;text-transform:uppercase;letter-spacing:.07em}
+.phase-prep{background:var(--badge);color:var(--badge-text);border:1px solid var(--border)}
+.phase-speak{background:color-mix(in srgb,var(--success) 14%,transparent);color:var(--success);border:1px solid color-mix(in srgb,var(--success) 28%,transparent)}
+.cue{background:var(--card);border:2px solid var(--border);border-radius:18px;padding:24px;position:relative;overflow:hidden;width:100%;max-width:560px}
+.cue::before{content:'';position:absolute;top:0;left:0;right:0;height:4px;background:linear-gradient(90deg,var(--accent),#60a5fa)}
+.cue-cat{position:absolute;top:14px;right:14px;background:var(--badge);color:var(--badge-text);font-size:.67rem;font-weight:700;padding:3px 9px;border-radius:9px}
+.cue-lbl{font-size:.7rem;font-weight:700;text-transform:uppercase;letter-spacing:.1em;color:var(--sub);margin-bottom:9px}
+.cue-topic{font-family:'DM Serif Display',serif;font-size:1.3rem;line-height:1.3;margin-bottom:15px}
+.cue-bullets{list-style:none;display:flex;flex-direction:column;gap:8px}
+.cue-bullets li{display:flex;align-items:flex-start;gap:9px;font-size:.92rem;line-height:1.5}
+.dot{width:7px;height:7px;border-radius:50%;background:var(--accent);flex-shrink:0;margin-top:7px}
+.ring-wrap{position:relative;width:200px;height:200px;flex-shrink:0}
+.ring-wrap svg{position:absolute;top:0;left:0;transform:rotate(-90deg)}
+.ring-center{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;z-index:1;pointer-events:none}
+.ring-digits{font-family:'JetBrains Mono',monospace;font-size:3.2rem;font-weight:700;line-height:1;letter-spacing:-.02em;color:var(--accent);transition:color .4s}
+.ring-lbl{font-size:.67rem;color:var(--sub);font-weight:700;text-transform:uppercase;letter-spacing:.1em;margin-top:5px}
+@keyframes pop{0%,100%{transform:scale(1)}50%{transform:scale(1.04)}}
+.pop{animation:pop .4s ease}
+.rec-bar{display:flex;align-items:center;gap:9px;background:color-mix(in srgb,var(--danger) 10%,transparent);border:1px solid color-mix(in srgb,var(--danger) 25%,transparent);border-radius:11px;padding:9px 16px;font-size:.84rem;font-weight:600;color:var(--danger);width:100%;max-width:560px}
+@keyframes blink{0%,100%{opacity:1}50%{opacity:.1}}
+.rec-dot{width:8px;height:8px;border-radius:50%;background:var(--danger);animation:blink 1s infinite;flex-shrink:0}
+.live-box{background:var(--surface);border:1px solid var(--border);border-radius:11px;padding:11px 15px;width:100%;max-width:560px}
+.live-lbl{font-size:.67rem;font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:var(--sub);margin-bottom:5px}
+.live-text{font-size:.84rem;color:var(--text);line-height:1.7;font-style:italic;min-height:18px}
+.mic-warn{background:color-mix(in srgb,var(--warn) 11%,transparent);border:1px solid color-mix(in srgb,var(--warn) 32%,transparent);border-radius:13px;padding:15px 18px;display:flex;gap:11px;width:100%;max-width:560px}
+.mic-warn-ico{font-size:1.3rem;flex-shrink:0}
+.mic-warn-t{font-weight:700;font-size:.87rem;margin-bottom:3px}
+.mic-warn-d{font-size:.79rem;color:var(--sub);line-height:1.6}
+.deploy-warn{background:color-mix(in srgb,var(--accent) 8%,transparent);border:2px solid color-mix(in srgb,var(--accent) 30%,transparent);border-radius:16px;padding:18px 20px;display:flex;flex-direction:column;gap:14px;width:100%;max-width:560px}
+.deploy-warn-top{display:flex;gap:12px;align-items:flex-start}
+.deploy-warn-t{font-weight:700;font-size:.92rem;margin-bottom:4px;color:var(--text)}
+.deploy-warn-d{font-size:.81rem;color:var(--sub);line-height:1.6}
+.deploy-steps{display:flex;flex-direction:column;gap:8px}
+.deploy-step{display:flex;align-items:flex-start;gap:10px;font-size:.82rem;color:var(--text);line-height:1.5}
+.deploy-num{width:22px;height:22px;border-radius:50%;background:var(--accent);color:#fff;font-size:.72rem;font-weight:700;display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:1px}
+.done-hero{text-align:center;padding:14px 0 4px}
+.done-ico{font-size:2.8rem;margin-bottom:9px}
+.done-title{font-family:'DM Serif Display',serif;font-size:1.9rem}
+.done-sub{color:var(--sub);font-size:.92rem;margin-top:6px}
+.card{background:var(--card);border:1px solid var(--border);border-radius:16px;padding:22px;box-shadow:0 2px 12px var(--shadow)}
+.card-sm{padding:16px;border-radius:13px}
+audio{width:100%;border-radius:7px;margin-top:9px}
+.load-wrap{display:flex;flex-direction:column;align-items:center;gap:20px;padding:52px 0;text-align:center}
+.load-ico{font-size:2.4rem}
+.load-title{font-weight:700;font-size:1rem}
+.load-sub{font-size:.84rem;color:var(--sub);max-width:300px;line-height:1.6}
+.load-steps{display:flex;gap:20px}
+.lstep{display:flex;align-items:center;gap:6px;opacity:.28;transition:opacity .35s}
+.lstep.on{opacity:1}
+.lstep-dot{width:8px;height:8px;border-radius:50%;background:var(--border);transition:background .35s}
+.lstep.on .lstep-dot{background:var(--accent)}
+.lstep-lbl{font-size:.73rem;font-weight:700;text-transform:uppercase;letter-spacing:.07em;color:var(--sub)}
+.lstep.on .lstep-lbl{color:var(--accent)}
+@keyframes bounce{0%,80%,100%{transform:scale(.8);opacity:.45}40%{transform:scale(1.1);opacity:1}}
+.dots{display:flex;gap:6px}
+.dots span{width:8px;height:8px;border-radius:50%;background:var(--accent);animation:bounce 1.2s infinite}
+.dots span:nth-child(2){animation-delay:.2s}.dots span:nth-child(3){animation-delay:.4s}
+.overall{background:linear-gradient(135deg,var(--accent),#60a5fa);color:#fff;border-radius:16px;padding:22px;text-align:center;margin-bottom:16px}
+.overall-band{font-family:'JetBrains Mono',monospace;font-size:3.8rem;font-weight:700;line-height:1}
+.overall-lbl{font-size:.73rem;font-weight:700;text-transform:uppercase;letter-spacing:.1em;opacity:.85;margin-top:3px}
+.overall-sum{font-size:.87rem;opacity:.93;margin-top:10px;line-height:1.6}
+.fb-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:14px}
+.sc{background:var(--card);border:1px solid var(--border);border-radius:13px;padding:15px}
+.sc-head{display:flex;align-items:center;justify-content:space-between;margin-bottom:9px}
+.sc-lbl{font-weight:700;font-size:.81rem;text-transform:uppercase;letter-spacing:.05em}
+.sc-num{font-family:'JetBrains Mono',monospace;font-size:1.5rem;font-weight:700}
+.sc-track{height:5px;background:var(--border);border-radius:3px;overflow:hidden;margin-bottom:8px}
+.sc-fill{height:100%;border-radius:3px;transition:width .8s ease}
+.sc-text{font-size:.8rem;color:var(--sub);line-height:1.6;margin-bottom:5px}
+.sc-quote{background:var(--surface);border-left:3px solid var(--accent);border-radius:0 7px 7px 0;padding:6px 10px;font-size:.78rem;font-style:italic;margin:6px 0;line-height:1.5}
+.sc-tip{font-size:.78rem;color:var(--accent);font-style:italic;line-height:1.5}
+.tx-box{background:var(--card);border:1px solid var(--border);border-radius:13px;padding:16px;margin-bottom:14px}
+.tx-lbl{font-size:.72rem;font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:var(--sub);margin-bottom:9px}
+.tx-text{font-size:.89rem;line-height:1.8;font-family:Georgia,serif}
+.tag-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:16px}
+.tag-box{background:var(--card);border:1px solid var(--border);border-radius:13px;padding:15px}
+.tag-box-t{font-size:.78rem;font-weight:700;margin-bottom:9px}
+.tags{display:flex;flex-wrap:wrap;gap:6px}
+.tag{padding:4px 10px;border-radius:11px;font-size:.75rem;font-weight:500}
+.tag-g{background:color-mix(in srgb,var(--success) 14%,transparent);color:var(--success)}
+.tag-b{background:var(--badge);color:var(--badge-text)}
+.note{background:var(--surface);border:1px solid var(--border);border-radius:11px;padding:11px 15px;font-size:.8rem;color:var(--sub);display:flex;gap:8px;margin-bottom:14px}
+.hist-item{display:flex;align-items:center;justify-content:space-between;background:var(--card);border:1px solid var(--border);border-radius:11px;padding:12px 16px;cursor:pointer;transition:all .2s;margin-bottom:8px}
+.hist-item:hover{border-color:var(--accent)}
+.hist-t{font-weight:600;font-size:.89rem}
+.hist-m{font-size:.75rem;color:var(--sub);margin-top:3px}
+.star{background:none;border:none;cursor:pointer;font-size:.95rem;padding:4px 6px;border-radius:6px;color:var(--sub)}
+.star:hover{background:var(--surface)}
+.star.on{color:var(--warn)}
+.browse-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(245px,1fr));gap:12px}
+.bc{background:var(--card);border:1px solid var(--border);border-radius:13px;padding:16px;position:relative;transition:all .2s}
+.bc:hover{border-color:var(--accent);transform:translateY(-2px);box-shadow:0 5px 18px color-mix(in srgb,var(--accent) 16%,transparent)}
+.bc-cat{font-size:.67rem;font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:var(--accent);margin-bottom:5px}
+.bc-topic{font-size:.89rem;font-weight:700;line-height:1.4;margin-bottom:7px}
+.bc-preview{font-size:.75rem;color:var(--sub);line-height:1.6}
+.bc-foot{display:flex;align-items:center;gap:6px;margin-top:10px}
+.filter-bar{display:flex;flex-wrap:wrap;gap:7px;margin-bottom:16px;align-items:center}
+.chip{padding:5px 12px;border-radius:18px;font-size:.77rem;font-weight:600;border:1px solid var(--border);background:var(--surface);color:var(--sub);cursor:pointer;transition:all .2s}
+.chip:hover,.chip.on{background:var(--accent);color:#fff;border-color:var(--accent)}
+.search{flex:1;min-width:160px;padding:7px 13px;border-radius:9px;border:1px solid var(--border);background:var(--card);color:var(--text);font-size:.85rem;font-family:'DM Sans',sans-serif;outline:none;transition:border .2s}
+.search:focus{border-color:var(--accent)}
+.search::placeholder{color:var(--sub)}
+.empty{text-align:center;padding:44px 0;color:var(--sub)}
+.empty-ico{font-size:2.3rem;margin-bottom:11px}
+@keyframes fadeUp{from{opacity:0;transform:translateX(-50%) translateY(10px)}to{opacity:1;transform:translateX(-50%) translateY(0)}}
+#toast{position:fixed;bottom:22px;left:50%;transform:translateX(-50%);padding:10px 20px;border-radius:11px;font-size:.85rem;font-weight:500;z-index:999;display:none;animation:fadeUp .28s ease;box-shadow:0 6px 20px rgba(0,0,0,.18);white-space:nowrap}
+.t-info{background:var(--accent);color:#fff}
+.t-err{background:var(--danger);color:#fff}
+.t-ok{background:var(--success);color:#fff}
+@media(max-width:600px){.fb-grid,.tag-grid{grid-template-columns:1fr}.stats{gap:16px}.wrap{padding:18px 13px}.logo-name{display:none}}
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="logo" onclick="goHome()">
+    <div class="logo-icon">🎓</div>
+    <div><div class="logo-name">IELTS Trainer</div><div class="logo-sub">Speaking Part 2</div></div>
+  </div>
+  <div class="nav-links">
+    <button class="nbtn on" id="nb-home" onclick="goHome()">Home</button>
+    <button class="nbtn" id="nb-browse" onclick="goBrowse()">Cards</button>
+    <button class="nbtn" id="nb-history" onclick="goHistory()">History<span class="nbadge" id="nbadge">0</span></button>
+    <button class="icon-btn" id="dark-btn" onclick="toggleDark()">🌙</button>
+  </div>
+</nav>
+
+<div class="wrap">
+
+  <!-- HOME -->
+  <div class="screen show" id="s-home">
+    <div class="hero">
+      <div class="eyebrow">IELTS Speaking Part 2</div>
+      <h1>Master Your<br><span>Speaking Skills</span></h1>
+      <p class="hero-sub">Fully automatic — microphone records when the timer starts, AI analyses your speech when you finish. No setup needed.</p>
+      <div class="stats">
+        <div><div class="stat-n">50</div><div class="stat-l">Cue Cards</div></div>
+        <div><div class="stat-n">9</div><div class="stat-l">Categories</div></div>
+        <div><div class="stat-n" id="home-count">0</div><div class="stat-l">Practiced</div></div>
+      </div>
+      <div class="btn-row">
+        <button class="btn btn-p btn-lg" onclick="startPractice(null)">🎯 Start Practice</button>
+        <button class="btn btn-s btn-lg" onclick="goBrowse()">📚 Browse Cards</button>
+      </div>
+
+    </div>
+    <hr>
+    <h2 class="sec-h">How it works</h2>
+    <p class="sec-s">Fully automatic — just speak and get feedback.</p>
+    <div class="steps">
+      <div class="step"><div class="step-n">1</div><div class="step-ico">📋</div><div class="step-t">Get a cue card</div><div class="step-d">A random topic with bullet points appears for you to talk about.</div></div>
+      <div class="step"><div class="step-n">2</div><div class="step-ico">⏱️</div><div class="step-t">1 min preparation</div><div class="step-d">Organise your thoughts. Allow mic access when prompted.</div></div>
+      <div class="step"><div class="step-n">3</div><div class="step-ico">🎤</div><div class="step-t">Speak 2 minutes</div><div class="step-d">Your voice is recorded and transcribed live automatically.</div></div>
+      <div class="step"><div class="step-n">4</div><div class="step-ico">🤖</div><div class="step-t">Instant AI feedback</div><div class="step-d">Scored on fluency, vocabulary, grammar and pronunciation.</div></div>
+    </div>
+  </div>
+
+  <!-- PRACTICE -->
+  <div class="screen" id="s-practice">
+    <div class="pc-wrap">
+      <div class="phase-tag phase-prep" id="phase-tag">📋 Preparation Time</div>
+      <div class="cue" id="p-card">
+        <span class="cue-cat" id="p-cat"></span>
+        <div class="cue-lbl">You should talk about:</div>
+        <div class="cue-topic" id="p-topic"></div>
+        <div class="cue-lbl">You should say:</div>
+        <ul class="cue-bullets" id="p-bullets"></ul>
+      </div>
+      <div class="ring-wrap" id="ring-wrap">
+        <svg width="200" height="200" viewBox="0 0 200 200">
+          <circle cx="100" cy="100" r="88" fill="none" stroke="var(--border)" stroke-width="10"/>
+          <circle id="ring" cx="100" cy="100" r="88" fill="none" stroke="var(--accent)"
+            stroke-width="10" stroke-linecap="round"
+            stroke-dasharray="552.92" stroke-dashoffset="0"
+            style="transition:stroke-dashoffset .95s linear,stroke .45s"/>
+        </svg>
+        <div class="ring-center">
+          <div class="ring-digits" id="ring-digits">01:00</div>
+          <div class="ring-lbl" id="ring-lbl">Prepare</div>
+        </div>
+      </div>
+      <p id="prep-hint" style="color:var(--sub);font-size:.87rem;text-align:center;max-width:420px">
+        Use this time to organise your thoughts. Recording starts automatically.
+      </p>
+      <div class="rec-bar" id="rec-bar" style="display:none">
+        <span class="rec-dot"></span> Recording &amp; transcribing live…
+      </div>
+      <div class="live-box" id="live-box" style="display:none">
+        <div class="live-lbl">📝 Live transcript</div>
+        <div class="live-text" id="live-text"></div>
+      </div>
+      <div class="mic-warn" id="mic-warn" style="display:none">
+        <div class="mic-warn-ico">⚠️</div>
+        <div>
+          <div class="mic-warn-t">Microphone access denied</div>
+          <div class="mic-warn-d">Please allow microphone access in your browser settings and refresh the page.</div>
+        </div>
+      </div>
+
+      <div class="deploy-warn" id="deploy-warn" style="display:none">
+        <div class="deploy-warn-top">
+          <span style="font-size:1.4rem">🚀</span>
+          <div>
+            <div class="deploy-warn-t">Save the file to use microphone</div>
+            <div class="deploy-warn-d">The microphone is blocked inside Claude's preview. To use recording + AI feedback, save this app as an HTML file and open it in Chrome or Edge.</div>
+          </div>
+        </div>
+        <div class="deploy-steps">
+          <div class="deploy-step"><span class="deploy-num">1</span>Click the <strong>download button</strong> above this preview to save the HTML file</div>
+          <div class="deploy-step"><span class="deploy-num">2</span>Open the saved file in <strong>Chrome</strong> or <strong>Edge</strong></div>
+          <div class="deploy-step"><span class="deploy-num">3</span>Click <strong>Allow</strong> when the browser asks for microphone access</div>
+          <div class="deploy-step"><span class="deploy-num">4</span>Everything works automatically — record, transcribe, AI feedback ✅</div>
+        </div>
+        <p style="font-size:.75rem;color:var(--sub);margin-top:10px">Meanwhile, the timer still runs. AI feedback will use topic guidance (no transcript) until you open the file directly.</p>
+      </div>
+      <div class="btn-row">
+        <button class="btn btn-s btn-sm" id="finish-btn" style="display:none" onclick="finishEarly()">✓ Finish Early</button>
+        <button class="btn btn-g btn-sm" onclick="cancelPractice()">✕ Cancel</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- DONE -->
+  <div class="screen" id="s-done">
+    <div style="display:flex;flex-direction:column;gap:18px">
+      <div class="done-hero">
+        <div class="done-ico">🎉</div>
+        <div class="done-title">Practice Complete!</div>
+        <div class="done-sub">Great work. Your feedback is loading…</div>
+      </div>
+      <div class="cue" style="max-width:100%">
+        <span class="cue-cat" id="d-cat"></span>
+        <div class="cue-lbl">You spoke about:</div>
+        <div class="cue-topic" id="d-topic"></div>
+        <ul class="cue-bullets" id="d-bullets"></ul>
+      </div>
+      <div class="card card-sm" id="d-audio-wrap" style="display:none">
+        <div style="font-size:.75rem;font-weight:700;text-transform:uppercase;letter-spacing:.07em;color:var(--sub)">🎵 Your Recording</div>
+        <audio id="d-audio" controls></audio>
+      </div>
+      <div class="btn-row">
+        <button class="btn btn-p" onclick="getAIFeedback()">🤖 Get AI Feedback</button>
+        <button class="btn btn-s" onclick="startPractice(null)">🔁 Next Card</button>
+        <button class="btn btn-g" id="fav-btn" onclick="toggleFavCurrent()">☆ Favourite</button>
+        <button class="btn btn-g" onclick="goHome()">🏠 Home</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- LOADING -->
+  <div class="screen" id="s-loading">
+    <div class="load-wrap">
+      <div class="load-ico" id="l-ico">🎙️</div>
+      <div class="load-title" id="l-title">Processing your recording…</div>
+      <div class="load-sub" id="l-sub">Getting your transcript ready.</div>
+      <div class="load-steps">
+        <div class="lstep on" id="ls-1"><div class="lstep-dot"></div><div class="lstep-lbl">Transcribe</div></div>
+        <div class="lstep" id="ls-2"><div class="lstep-dot"></div><div class="lstep-lbl">Analyse</div></div>
+      </div>
+      <div class="dots"><span></span><span></span><span></span></div>
+    </div>
+  </div>
+
+  <!-- FEEDBACK -->
+  <div class="screen" id="s-feedback">
+    <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:16px">
+      <h2 class="sec-h" style="margin:0">AI Feedback</h2>
+      <button class="btn btn-g btn-sm" onclick="showScreen('done')">← Back</button>
+    </div>
+    <div class="overall">
+      <div class="overall-band" id="fb-band">—</div>
+      <div class="overall-lbl">Estimated Band Score</div>
+      <div class="overall-sum" id="fb-sum"></div>
+    </div>
+    <div class="note" id="fb-note" style="display:none"><span>ℹ️</span><span id="fb-note-t"></span></div>
+    <div class="tx-box" id="fb-tx" style="display:none">
+      <div class="tx-lbl">📝 Your Transcript</div>
+      <div class="tx-text" id="fb-tx-text"></div>
+    </div>
+    <div class="fb-grid" id="fb-grid"></div>
+    <div class="tag-grid" id="fb-tags"></div>
+    <div class="btn-row">
+      <button class="btn btn-p" onclick="startPractice(null)">🔁 Practice Again</button>
+      <button class="btn btn-g" onclick="goHome()">🏠 Home</button>
+    </div>
+  </div>
+
+  <!-- HISTORY -->
+  <div class="screen" id="s-history">
+    <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:4px">
+      <h2 class="sec-h" style="margin:0">Practice History</h2>
+      <button class="btn btn-g btn-sm" onclick="clearHistory()">Clear All</button>
+    </div>
+    <p class="sec-s" id="hist-sub">0 sessions</p>
+    <div id="hist-list"></div>
+  </div>
+
+  <!-- BROWSE -->
+  <div class="screen" id="s-browse">
+    <h2 class="sec-h">All Cue Cards</h2>
+    <p class="sec-s">Browse, favourite, and start any card.</p>
+    <div class="filter-bar">
+      <input class="search" id="bsearch" placeholder="🔍 Search…" oninput="renderBrowse()">
+      <button class="chip" id="fav-chip" onclick="toggleFavFilter()">⭐ Favourites</button>
+      <span id="cat-chips"></span>
+    </div>
+    <div class="browse-grid" id="browse-grid"></div>
+  </div>
+
+</div>
+
+<div id="toast"></div>
+
+<!-- ALL JS IS HERE AT THE BOTTOM — DOM is fully loaded before any code runs -->
+<script>
+const CARDS=[
+  {id:1,topic:"Describe a memorable trip you had",bullets:["Where you went","Who you went with","What you did there","Why it was memorable"],cat:"Travel"},
+  {id:2,topic:"Describe a person who has inspired you",bullets:["Who this person is","How you know them","What they have done","Why they inspire you"],cat:"People"},
+  {id:3,topic:"Describe a book you recently read",bullets:["What the book is about","Why you chose to read it","What you learned from it","Whether you would recommend it"],cat:"Education"},
+  {id:4,topic:"Describe a skill you would like to learn",bullets:["What the skill is","Why you want to learn it","How you plan to learn it","How it would benefit you"],cat:"Personal"},
+  {id:5,topic:"Describe a difficult decision you had to make",bullets:["What the decision was","Why it was difficult","How you made the decision","What the outcome was"],cat:"Personal"},
+  {id:6,topic:"Describe a famous person you admire",bullets:["Who this person is","What they are known for","How you learned about them","Why you admire them"],cat:"People"},
+  {id:7,topic:"Describe your favourite place in your city",bullets:["Where it is located","What it looks like","What you do there","Why you like it"],cat:"Places"},
+  {id:8,topic:"Describe a time when you helped someone",bullets:["Who you helped","Why they needed help","How you helped them","How you felt afterwards"],cat:"Experiences"},
+  {id:9,topic:"Describe a childhood memory",bullets:["What the memory is about","When it happened","Who was involved","Why it is special to you"],cat:"Personal"},
+  {id:10,topic:"Describe a job you would like to have in the future",bullets:["What the job is","What qualifications are needed","Why you want this job","How you plan to achieve it"],cat:"Work"},
+  {id:11,topic:"Describe a time you received an important gift",bullets:["What the gift was","Who gave it to you","When you received it","Why it was important"],cat:"Experiences"},
+  {id:12,topic:"Describe a movie that made a strong impression on you",bullets:["What the movie is about","When and where you watched it","What you found most interesting","Why it left a strong impression"],cat:"Entertainment"},
+  {id:13,topic:"Describe a piece of technology you use every day",bullets:["What the technology is","How long you have used it","What you use it for","How your life would change without it"],cat:"Technology"},
+  {id:14,topic:"Describe a traditional food from your country",bullets:["What the food is","How it is prepared","When people usually eat it","Why you like or dislike it"],cat:"Culture"},
+  {id:15,topic:"Describe a sports event you attended or watched",bullets:["What sport it was","Where it took place","Who was competing","Why you found it exciting"],cat:"Sports"},
+  {id:16,topic:"Describe a time you learned something from a mistake",bullets:["What mistake you made","When it happened","What you learned from it","How it changed your behaviour"],cat:"Personal"},
+  {id:17,topic:"Describe a neighbour you know well",bullets:["Who this person is","How long you have known them","What kind of person they are","Why you get along well"],cat:"People"},
+  {id:18,topic:"Describe a festival or celebration in your culture",bullets:["What the festival is","When it takes place","How people celebrate it","Why it is important"],cat:"Culture"},
+  {id:19,topic:"Describe a piece of music or song you like",bullets:["What the song or music is","When you first heard it","What it is about or how it sounds","Why you enjoy it"],cat:"Entertainment"},
+  {id:20,topic:"Describe a time you were very busy",bullets:["When this happened","Why you were so busy","What you had to do","How you managed your time"],cat:"Experiences"},
+  {id:21,topic:"Describe a subject you enjoyed at school",bullets:["What the subject was","Who taught it","What topics were covered","Why you enjoyed it"],cat:"Education"},
+  {id:22,topic:"Describe a time you visited a museum or gallery",bullets:["Where the museum or gallery was","Why you went there","What you saw","What you thought of it"],cat:"Travel"},
+  {id:23,topic:"Describe an animal you find interesting",bullets:["What the animal is","Where it lives","What it looks like and does","Why you find it interesting"],cat:"Nature"},
+  {id:24,topic:"Describe a website or app you use frequently",bullets:["What the website or app is","What it is used for","How often you use it","Why you find it useful"],cat:"Technology"},
+  {id:25,topic:"Describe a time you cooked a meal for someone",bullets:["What you cooked","Who you cooked for","How you prepared it","How the meal went"],cat:"Experiences"},
+  {id:26,topic:"Describe a historical place you have visited",bullets:["Where the place is","Why it is historically significant","What you did there","What you felt visiting it"],cat:"Travel"},
+  {id:27,topic:"Describe a language you would like to learn",bullets:["What language it is","Why you want to learn it","How difficult you think it would be","How it would help you"],cat:"Education"},
+  {id:28,topic:"Describe a time you faced a challenge and overcame it",bullets:["What the challenge was","How it arose","What you did to overcome it","What you learned from the experience"],cat:"Personal"},
+  {id:29,topic:"Describe a park or outdoor space you enjoy",bullets:["Where it is","What it looks like","What activities you do there","Why you like spending time there"],cat:"Places"},
+  {id:30,topic:"Describe a time you disagreed with someone",bullets:["Who you disagreed with","What the disagreement was about","How it was resolved","What you learned from it"],cat:"Experiences"},
+  {id:31,topic:"Describe a sport or physical activity you enjoy",bullets:["What the activity is","How long you have done it","How you play or do it","Why you enjoy it"],cat:"Sports"},
+  {id:32,topic:"Describe a time when you felt very proud",bullets:["What made you proud","When and where this happened","Who was with you","How you felt at that moment"],cat:"Personal"},
+  {id:33,topic:"Describe a shop or market you like to visit",bullets:["Where it is located","What is sold there","How often you visit","Why you enjoy going there"],cat:"Places"},
+  {id:34,topic:"Describe a teacher who influenced you greatly",bullets:["Who the teacher is","What subject they taught","How they taught their lessons","Why they influenced you"],cat:"Education"},
+  {id:35,topic:"Describe a time you attended a wedding or special event",bullets:["What the event was","Where it was held","Who was there","What you enjoyed most about it"],cat:"Experiences"},
+  {id:36,topic:"Describe a time you had to work as part of a team",bullets:["What the task was","Who you worked with","What your role was","How well the team worked together"],cat:"Work"},
+  {id:37,topic:"Describe an invention that has changed the world",bullets:["What the invention is","When and how it was invented","How it changed everyday life","Why you think it is important"],cat:"Technology"},
+  {id:38,topic:"Describe a time you had a very pleasant surprise",bullets:["What the surprise was","When and where it happened","Who organised it","How you reacted"],cat:"Experiences"},
+  {id:39,topic:"Describe a place you would love to visit in the future",bullets:["Where you would like to go","Why you want to visit it","What you would do there","Who you would go with"],cat:"Travel"},
+  {id:40,topic:"Describe a time when you were late for something important",bullets:["What you were late for","Why you were late","What happened as a result","How you felt about it"],cat:"Experiences"},
+  {id:41,topic:"Describe a piece of art that you like",bullets:["What the artwork is","Who created it","Where you first saw it","Why you like it"],cat:"Culture"},
+  {id:42,topic:"Describe a time you stayed in an unusual place",bullets:["Where you stayed","Why it was unusual","What you did there","How you felt about the experience"],cat:"Travel"},
+  {id:43,topic:"Describe a time you had to apologise to someone",bullets:["Who you apologised to","Why you had to apologise","How you apologised","What the outcome was"],cat:"Personal"},
+  {id:44,topic:"Describe a social media platform you use",bullets:["What platform it is","How long you have used it","How you use it","What you think about its impact"],cat:"Technology"},
+  {id:45,topic:"Describe a time when you lost something important",bullets:["What you lost","When and how you lost it","How you felt about it","Whether you found it again"],cat:"Experiences"},
+  {id:46,topic:"Describe a local business you admire",bullets:["What kind of business it is","Where it is located","How long it has been operating","Why you admire it"],cat:"Work"},
+  {id:47,topic:"Describe a time you went on a long journey",bullets:["Where you travelled to","How you travelled","Who was with you","What made it memorable"],cat:"Travel"},
+  {id:48,topic:"Describe a habit you have that is good or bad",bullets:["What the habit is","How long you have had it","How it affects your daily life","Whether you want to change it"],cat:"Personal"},
+  {id:49,topic:"Describe a time you participated in a competition",bullets:["What the competition was","How you prepared for it","How well you performed","What you took away from the experience"],cat:"Experiences"},
+  {id:50,topic:"Describe a plan you have for the future",bullets:["What the plan is","Why you made this plan","How you will achieve it","How it will change your life"],cat:"Personal"},
+];
+
+const CIRC=552.92;
+
+/* ── STATE ── */
+let card=null,timerId=null,timeLeft=0,maxT=60,phase='prep';
+let mediaRec=null,audioChunks=[],audioBlob=null,audioURL=null;
+let recog=null,liveText='',finalText='';
+let favs=JSON.parse(localStorage.getItem('ielts_favs')||'[]');
+let hist=JSON.parse(localStorage.getItem('ielts_hist')||'[]');
+let dark=localStorage.getItem('ielts_dark')==='1';
+let favFilter=false,catFilter='All';
+
+/* ── SAFE DOM HELPERS ── */
+// These are safe because the script tag is AFTER all HTML elements
+function el(id){ return document.getElementById(id); }
+function txt(id,v){ const e=el(id); if(e) e.textContent=v; }
+function vis(id,v){ const e=el(id); if(e) e.style.display=v; }
+
+function showScreen(name){
+  document.querySelectorAll('.screen').forEach(s=>s.classList.remove('show'));
+  const s=el('s-'+name); if(s) s.classList.add('show');
+  ['home','browse','history'].forEach(n=>{ const b=el('nb-'+n); if(b) b.classList.toggle('on',n===name); });
+}
+
+/* ── SOUNDS ── */
+function beep(f,d,v){try{const c=new(window.AudioContext||window.webkitAudioContext)();const o=c.createOscillator();const g=c.createGain();o.connect(g);g.connect(c.destination);o.frequency.value=f;g.gain.setValueAtTime(v,c.currentTime);g.gain.exponentialRampToValueAtTime(.001,c.currentTime+d/1000);o.start();o.stop(c.currentTime+d/1000);}catch(e){}}
+const sndStart=()=>{beep(660,200,.35);setTimeout(()=>beep(880,250,.3),220)};
+const sndEnd=()=>{[0,160,320].forEach(d=>setTimeout(()=>beep(440,200,.35),d))};
+const sndTick=()=>beep(700,60,.12);
+
+/* ── TOAST ── */
+let toastT;
+function toast(msg,type='info'){
+  const e=el('toast'); if(!e) return;
+  e.textContent=msg; e.className='t-'+type; e.style.display='block';
+  clearTimeout(toastT); toastT=setTimeout(()=>e.style.display='none',3000);
+}
+
+/* ── DARK MODE ── */
+function toggleDark(){
+  dark=!dark; document.body.classList.toggle('dark',dark);
+  localStorage.setItem('ielts_dark',dark?'1':'0');
+  txt('dark-btn',dark?'☀️':'🌙');
+}
+
+/* ── NAV ── */
+function goHome(){ stopTimer();stopRec();showScreen('home');txt('home-count',hist.length); }
+function goBrowse(){ showScreen('browse');renderBrowse(); }
+function goHistory(){ showScreen('history');renderHistory(); }
+
+/* ── PRACTICE ── */
+function startPractice(picked){
+  stopTimer(); stopRec();
+  audioBlob=null; audioURL=null; liveText=''; finalText='';
+  card = picked || CARDS[Math.floor(Math.random()*CARDS.length)];
+  phase='prep'; maxT=60;
+
+  // Switch screen first — elements are now visible
+  showScreen('practice');
+
+  // Fill cue card
+  txt('p-cat', card.cat);
+  txt('p-topic', card.topic);
+  const ul=el('p-bullets');
+  if(ul) ul.innerHTML=card.bullets.map(b=>`<li><span class="dot"></span>${b}</li>`).join('');
+
+  // Phase tag
+  const pt=el('phase-tag');
+  if(pt){ pt.className='phase-tag phase-prep'; pt.textContent='📋 Preparation Time'; }
+
+  // Timer
+  updateRing(60,60,'var(--accent)');
+
+  // Visibility
+  vis('prep-hint','block'); vis('rec-bar','none'); vis('live-box','none');
+  vis('mic-warn','none'); vis('deploy-warn','none'); vis('finish-btn','none');
+  txt('live-text','');
+
+  sndStart();
+  startTimer(60, onPrepDone);
+}
+
+function onPrepDone(){
+  sndEnd(); phase='speak'; maxT=120;
+  const pt=el('phase-tag');
+  if(pt){ pt.className='phase-tag phase-speak'; pt.textContent='🎤 Speaking Time'; }
+  vis('prep-hint','none'); vis('finish-btn','inline-flex'); vis('live-box','block');
+  sndStart(); startAutoRec(); startTimer(120, onSpeakDone);
+}
+
+function onSpeakDone(){
+  sndEnd(); stopRec(); saveHist(card); fillDone();
+  showScreen('done');
+  setTimeout(getAIFeedback, 800);
+}
+
+function finishEarly(){
+  stopTimer(); stopRec(); saveHist(card); fillDone();
+  showScreen('done');
+  setTimeout(getAIFeedback, 800);
+}
+
+function cancelPractice(){ stopTimer(); stopRec(); vis('deploy-warn','none'); goHome(); }
+
+function fillDone(){
+  txt('d-cat', card.cat);
+  txt('d-topic', card.topic);
+  const ul=el('d-bullets');
+  if(ul) ul.innerHTML=card.bullets.map(b=>`<li><span class="dot"></span>${b}</li>`).join('');
+  const fb=el('fav-btn');
+  if(fb) fb.textContent=favs.includes(card.id)?'★ Unfavourite':'☆ Favourite';
+  vis('d-audio-wrap','none');
+  setTimeout(()=>{
+    if(audioURL){ const a=el('d-audio'); if(a) a.src=audioURL; vis('d-audio-wrap','block'); }
+  },800);
+}
+
+/* ── TIMER ── */
+function fmt(s){ return String(Math.floor(s/60)).padStart(2,'0')+':'+String(s%60).padStart(2,'0'); }
+
+function updateRing(t,max,color){
+  const ring=el('ring'),digits=el('ring-digits'),lbl=el('ring-lbl');
+  if(ring){ ring.style.strokeDashoffset=CIRC*(1-t/max); ring.style.stroke=color; }
+  if(digits){ digits.textContent=fmt(t); digits.style.color=color; }
+  if(lbl) lbl.textContent=phase==='prep'?'Prepare':'Speaking';
+}
+
+function startTimer(secs,done){
+  clearInterval(timerId); timeLeft=secs; maxT=secs;
+  updateRing(secs,secs,'var(--accent)');
+  timerId=setInterval(()=>{
+    timeLeft--;
+    const c=timeLeft>30?'var(--accent)':timeLeft>10?'var(--warn)':'var(--danger)';
+    updateRing(timeLeft,maxT,c);
+    if(timeLeft<=5&&timeLeft>0){ sndTick(); popRing(); }
+    if(timeLeft<=0){ clearInterval(timerId); done(); }
+  },1000);
+}
+
+function stopTimer(){ clearInterval(timerId); }
+
+function popRing(){
+  const w=el('ring-wrap'); if(!w) return;
+  w.classList.remove('pop'); void w.offsetWidth; w.classList.add('pop');
+  setTimeout(()=>w.classList.remove('pop'),400);
+}
+
+/* ── SANDBOX DETECTION ── */
+function isInsideSandbox(){
+  try{
+    // If we're in an iframe and can't access top, we're sandboxed
+    return window.self !== window.top;
+  }catch(e){ return true; }
+}
+
+/* ── RECORDING ── */
+async function startAutoRec(){
+  liveText=''; finalText='';
+
+  // Check if we're inside a sandboxed iframe (e.g. Claude.ai artifact viewer)
+  if(isInsideSandbox()){
+    showSandboxWarning();
+    return;
+  }
+
+  // Check if mediaDevices API even exists
+  if(!navigator.mediaDevices||!navigator.mediaDevices.getUserMedia){
+    showSandboxWarning();
+    return;
+  }
+
+  try{
+    const stream=await navigator.mediaDevices.getUserMedia({audio:true,video:false});
+    audioChunks=[];
+    const mime=['audio/webm;codecs=opus','audio/webm','audio/ogg','audio/mp4'].find(m=>MediaRecorder.isTypeSupported(m))||'';
+    mediaRec=new MediaRecorder(stream,mime?{mimeType:mime}:{});
+    mediaRec.ondataavailable=e=>{ if(e.data&&e.data.size>0) audioChunks.push(e.data); };
+    mediaRec.onstop=()=>{
+      audioBlob=new Blob(audioChunks,{type:mediaRec.mimeType||'audio/webm'});
+      audioURL=URL.createObjectURL(audioBlob);
+      stream.getTracks().forEach(t=>t.stop());
+    };
+    mediaRec.start(500);
+    vis('rec-bar','flex');
+  }catch(err){
+    console.warn('Mic blocked — likely sandboxed iframe');
+    showSandboxWarning();
+    return;
+  }
+
+  const SR=window.SpeechRecognition||window.webkitSpeechRecognition;
+  if(SR){
+    try{
+      recog=new SR(); recog.continuous=true; recog.interimResults=true; recog.lang='en-US';
+      recog.onresult=e=>{
+        let interim='';
+        for(let i=e.resultIndex;i<e.results.length;i++){
+          if(e.results[i].isFinal) finalText+=e.results[i][0].transcript+' ';
+          else interim+=e.results[i][0].transcript;
+        }
+        liveText=(finalText+interim).trim();
+        txt('live-text', liveText);
+      };
+      recog.onerror=e=>{ if(e.error!=='no-speech') console.warn('SR:',e.error); };
+      recog.start();
+    }catch(e){ console.warn('SR unavailable'); }
+  }
+}
+
+function showSandboxWarning(){
+  // Hide mic warning, show deploy warning instead
+  vis('mic-warn','none');
+  vis('deploy-warn','flex');
+}
+
+function stopRec(){
+  if(mediaRec&&mediaRec.state!=='inactive'){ try{mediaRec.stop();}catch(e){} }
+  if(recog){ try{recog.stop();}catch(e){} recog=null; }
+  vis('rec-bar','none');
+}
+
+/* ── FAVOURITES ── */
+function toggleFavCurrent(){
+  if(!card) return;
+  favs=favs.includes(card.id)?favs.filter(f=>f!==card.id):[...favs,card.id];
+  localStorage.setItem('ielts_favs',JSON.stringify(favs));
+  txt('fav-btn', favs.includes(card.id)?'★ Unfavourite':'☆ Favourite');
+  toast(favs.includes(card.id)?'Added to favourites ⭐':'Removed from favourites');
+}
+
+/* ── HISTORY ── */
+function saveHist(c){
+  hist=[{...c,date:new Date().toISOString()},...hist].slice(0,60);
+  localStorage.setItem('ielts_hist',JSON.stringify(hist));
+  const nb=el('nbadge'); if(nb){ nb.style.display='inline'; nb.textContent=hist.length; }
+}
+
+function renderHistory(){
+  txt('hist-sub',`${hist.length} session${hist.length!==1?'s':''} completed`);
+  const list=el('hist-list'); if(!list) return;
+  if(!hist.length){ list.innerHTML='<div class="empty"><div class="empty-ico">📊</div><p>No history yet. Start a session!</p></div>'; return; }
+  list.innerHTML=hist.map((h,i)=>`
+    <div class="hist-item" onclick="practiceFromHist(${i})">
+      <div><div class="hist-t">${h.topic}</div><div class="hist-m">${h.cat} · ${new Date(h.date).toLocaleDateString('en-GB',{day:'numeric',month:'short',year:'numeric',hour:'2-digit',minute:'2-digit'})}</div></div>
+      <button class="star ${favs.includes(h.id)?'on':''}" onclick="event.stopPropagation();hFav(${h.id},this)">★</button>
+    </div>`).join('');
+}
+function practiceFromHist(i){ startPractice(CARDS.find(x=>x.id===hist[i].id)||hist[i]); }
+function hFav(id,btn){ favs=favs.includes(id)?favs.filter(f=>f!==id):[...favs,id]; localStorage.setItem('ielts_favs',JSON.stringify(favs)); btn.classList.toggle('on',favs.includes(id)); toast(favs.includes(id)?'Added ⭐':'Removed'); }
+function clearHistory(){ hist=[]; localStorage.removeItem('ielts_hist'); renderHistory(); const nb=el('nbadge'); if(nb) nb.style.display='none'; toast('History cleared'); }
+
+/* ── BROWSE ── */
+function renderCatChips(){
+  const cats=['All',...new Set(CARDS.map(c=>c.cat))];
+  const span=el('cat-chips'); if(!span) return;
+  span.innerHTML=cats.map(c=>`<button class="chip${c===catFilter?' on':''}" onclick="setCat('${c}')">${c}</button>`).join(' ');
+}
+function setCat(c){ catFilter=c; renderBrowse(); }
+function toggleFavFilter(){ favFilter=!favFilter; const fc=el('fav-chip'); if(fc) fc.classList.toggle('on',favFilter); renderBrowse(); }
+
+function renderBrowse(){
+  renderCatChips();
+  const q=(el('bsearch')?.value||'').toLowerCase();
+  const cards=CARDS.filter(c=>{
+    if(catFilter!=='All'&&c.cat!==catFilter) return false;
+    if(favFilter&&!favs.includes(c.id)) return false;
+    if(q&&!c.topic.toLowerCase().includes(q)) return false;
+    return true;
+  });
+  const grid=el('browse-grid'); if(!grid) return;
+  if(!cards.length){ grid.innerHTML='<div class="empty" style="grid-column:1/-1"><div class="empty-ico">🔍</div><p>No cards match.</p></div>'; return; }
+  grid.innerHTML=cards.map(c=>`
+    <div class="bc">
+      <button class="star ${favs.includes(c.id)?'on':''}" style="position:absolute;top:10px;right:10px" onclick="bFav(${c.id},this)">★</button>
+      <div class="bc-cat">${c.cat}</div>
+      <div class="bc-topic">${c.topic}</div>
+      <div class="bc-preview">${c.bullets.slice(0,2).join(' · ')}…</div>
+      <div class="bc-foot"><button class="btn btn-p btn-sm" style="flex:1" onclick="startPractice(CARDS.find(x=>x.id===${c.id}))">▶ Practice</button></div>
+    </div>`).join('');
+}
+function bFav(id,btn){ favs=favs.includes(id)?favs.filter(f=>f!==id):[...favs,id]; localStorage.setItem('ielts_favs',JSON.stringify(favs)); btn.classList.toggle('on',favs.includes(id)); toast(favs.includes(id)?'Added ⭐':'Removed'); if(favFilter) renderBrowse(); }
+
+/* ── AI FEEDBACK ── */
+async function getAIFeedback(){
+  showScreen('loading');
+  txt('l-ico','🎙️'); txt('l-title','Processing your speech…'); txt('l-sub','Preparing your transcript.');
+  const ls1=el('ls-1'),ls2=el('ls-2');
+  if(ls1) ls1.classList.add('on'); if(ls2) ls2.classList.remove('on');
+
+  await new Promise(r=>setTimeout(r,900));
+  const transcript=(finalText||liveText||'').trim();
+
+  txt('l-ico','🤖'); txt('l-title','Analysing with AI…'); txt('l-sub','Scoring fluency, vocabulary, grammar and pronunciation.');
+  if(ls1) ls1.classList.remove('on'); if(ls2) ls2.classList.add('on');
+
+  try{
+    const hasT=transcript.length>15;
+    const prompt=hasT
+      ?`You are a certified IELTS examiner.\n\nCue card topic: "${card.topic}"\nBullet points: ${card.bullets.join('; ')}\n\nTRANSCRIPT of what the student said:\n"""\n${transcript}\n"""\n\nAnalyse carefully. Quote their actual words. Identify real grammar mistakes. Be specific and honest.`
+      :`You are a certified IELTS examiner.\n\nCue card topic: "${card.topic}"\nBullet points: ${card.bullets.join('; ')}\n\nNo transcript captured. Give helpful topic-specific guidance — useful phrases, vocabulary, common mistakes to avoid.`;
+
+    const res=await fetch('/api/chat',{
+      method:'POST',
+      headers:{'Content-Type':'application/json'},
+      body:JSON.stringify({
+        model:'claude-sonnet-4-20250514',
+        max_tokens:1400,
+        system:`You are a certified IELTS examiner. Return ONLY valid JSON, no markdown, no extra text.\n{"overall":{"band":<1.0-9.0>,"summary":"<2 sentences>"},"transcript_note":"<1 sentence>","fluency":{"score":<1-9>,"feedback":"<specific>","tip":"<actionable>","example_quote":"<from transcript or empty>"},"vocabulary":{"score":<1-9>,"feedback":"<specific>","tip":"<better words>","example_quote":"<from transcript or empty>"},"grammar":{"score":<1-9>,"feedback":"<specific mistakes>","tip":"<correction>","example_quote":"<from transcript or empty>"},"pronunciation":{"score":<1-9>,"feedback":"<observation>","tip":"<actionable>","example_quote":""},"strengths":["<s1>","<s2>"],"improvements":["<i1>","<i2>","<i3>"]}`,
+        messages:[{role:'user',content:prompt}]
+      })
+    });
+    const data=await res.json();
+    if(!res.ok){
+      const errMsg = data?.error?.message||`API error ${res.status}`;
+      throw new Error(errMsg);
+    }
+    const raw=(data.content||[]).map(b=>b.text||'').join('');
+    const fb=JSON.parse(raw.replace(/```json|```/g,'').trim());
+    renderFeedback(fb,transcript);
+    showScreen('feedback');
+  }catch(e){
+    console.error('Feedback error:',e);
+    let msg = 'Could not load feedback — please try again.';
+    if(e.message&&e.message.includes('401')) msg='Server config error — check API key in Vercel environment variables.';
+    else if(e.message&&e.message.includes('fetch')) msg='Network error. Check your internet connection.';
+    toast(msg,'err');
+    showScreen('done');
+  }
+}
+
+function bandCol(s){ return s>=7?'var(--success)':s>=5?'var(--warn)':'var(--danger)'; }
+
+function renderFeedback(fb,transcript){
+  txt('fb-band',fb.overall?.band??'—');
+  txt('fb-sum',fb.overall?.summary??'');
+  if(fb.transcript_note){ vis('fb-note','flex'); txt('fb-note-t',fb.transcript_note); } else vis('fb-note','none');
+  if(transcript&&transcript.length>10){ vis('fb-tx','block'); txt('fb-tx-text',transcript); } else vis('fb-tx','none');
+  const cats=[{k:'fluency',l:'Fluency & Coherence',i:'💬'},{k:'vocabulary',l:'Lexical Resource',i:'📚'},{k:'grammar',l:'Grammatical Range',i:'✏️'},{k:'pronunciation',l:'Pronunciation',i:'🔊'}];
+  const grid=el('fb-grid');
+  if(grid) grid.innerHTML=cats.map(({k,l,i})=>{
+    const d=fb[k]; if(!d) return '';
+    const pct=(d.score/9)*100,col=bandCol(d.score);
+    const q=d.example_quote?.trim()?`<div class="sc-quote">"${d.example_quote}"</div>`:'';
+    return `<div class="sc"><div class="sc-head"><span class="sc-lbl">${i} ${l}</span><span class="sc-num" style="color:${col}">${d.score}</span></div><div class="sc-track"><div class="sc-fill" style="width:${pct}%;background:${col}"></div></div><div class="sc-text">${d.feedback}</div>${q}<div class="sc-tip">💡 ${d.tip}</div></div>`;
+  }).join('');
+  const tags=el('fb-tags');
+  if(tags) tags.innerHTML=`<div class="tag-box"><div class="tag-box-t" style="color:var(--success)">✅ Strengths</div><div class="tags">${(fb.strengths||[]).map(s=>`<span class="tag tag-g">${s}</span>`).join('')}</div></div><div class="tag-box"><div class="tag-box-t" style="color:var(--accent)">📈 To Improve</div><div class="tags">${(fb.improvements||[]).map(s=>`<span class="tag tag-b">${s}</span>`).join('')}</div></div>`;
+}
+
+/* ── INIT (DOM already ready — script is at bottom of body) ── */
+if(dark){ document.body.classList.add('dark'); txt('dark-btn','☀️'); }
+txt('home-count',hist.length);
+if(hist.length){ const nb=el('nbadge'); if(nb){ nb.style.display='inline'; nb.textContent=hist.length; } }
+renderCatChips();
+renderBrowse();
+</script>
+</body>
+</html>
